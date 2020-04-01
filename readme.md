@@ -40,7 +40,7 @@ core.memoize is great but sometimes a little sugar is nice.
 ;;; you can specify more than one and the strategies will be composed
 
 ; cache answers for 5 seconds.
-^{:ttl/threshold 500}
+^{:ttl/threshold 5000}
 
 ; will do a sliding window of the 500 most recent answers.
 ^{:fifo/threshold 500}
