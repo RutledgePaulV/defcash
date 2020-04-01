@@ -42,22 +42,18 @@
      (is (<= 900 duration#))
      result#))
 
-(defmacro throws [& body]
-  `(try ~@body
-        (is false "should have thrown.")
-        (catch Exception e#
-          (is true "did throw"))))
-
 (defn clear! []
-  (memo-clear! memo-fun)
-  (memo-clear! seed-fun)
-  (memo-clear! ttl-fun)
-  (memo-clear! fifo-fun)
-  (memo-clear! lru-fun)
-  (memo-clear! lu-fun))
+  (->> (namespace ::this)
+       (symbol)
+       (the-ns)
+       (ns-interns)
+       (vals)
+       (filter var?)
+       (map deref)
+       (filter fn?)
+       (run! memo-clear!)))
 
 (use-fixtures :each (fn [tests] (clear!) (tests)))
-
 
 (deftest defn$-test
 
