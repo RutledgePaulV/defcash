@@ -55,6 +55,6 @@
   ([f]
    (memo/memo-swap! f (or (:seed (meta f)) {})))
   ([f args]
-   (let [seed (or (:seed (meta f)))]
+   (let [seed (or (:seed (meta f)) {})]
      (when-not (contains? seed args)
        (memo/memo-clear! f args)))))

@@ -10,7 +10,7 @@ core.memoize is great but sometimes a little sugar is nice.
 ### Install
 
 ```clojure
-[org.clojars.rutledgepaulv/defcash "0.0.1"]
+[org.clojars.rutledgepaulv/defcash "0.1.0"]
 ```
 
 
