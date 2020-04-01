@@ -27,7 +27,7 @@ core.memoize is great but sometimes a little sugar is nice.
 (slow-made-fast 1 2) ; takes 5 seconds
 (slow-made-fast 1 2) ; returns immediately
 (slow-made-fast 1 2) ; returns immediately
-(Thread/sleep 61000)
+(Thread/sleep 61000) ; :twiddle:
 (slow-made-fast 1 2) ; takes 5 seconds
 (slow-made-fast 1 2) ; returns immediately
 ($/memo-clear! slow-made-fast) ; manual eviction
@@ -35,24 +35,26 @@ core.memoize is great but sometimes a little sugar is nice.
 (slow-made-fast 1 2) ; returns immediately
 
 
-;;; all of the cache strategies provided by core.memoize are supported.
-;;; just specify values for these keywords to toggle the strategies on.
+;;; all of the cache strategies provided by core.memoize are supported
+;;; just specify values for these keywords to toggle the strategies on
 ;;; you can specify more than one and the strategies will be composed
 
-; cache answers for 5 seconds.
+; specify none of the cache strategies will default to unbounded caching (like clojure.core/memoize)
+^{}
+
+; cache answers for 5 seconds
 ^{:ttl/threshold 5000}
 
-; will do a sliding window of the 500 most recent answers.
+; will do a sliding window of the 500 most recent answers
 ^{:fifo/threshold 500}
 
-; will keep 500 items and then remove items that have been accessed the least number of times.
+; will keep 500 items and then remove items that have been accessed the least number of times
 ^{:lu/threshold 500} 
 
-; will keep 500 items and then remove the items that have gone the longest without use.
+; will keep 500 items and then remove the items that have gone the longest without use
 ^{:lru/threshold 500}
 
 ;;; you can also specify a :seed which is a map of arg vector to value
-;;; seed data is exempt from all natural and explicit evictions
 
 ^{:seed {[1 2] 3 [4 5] 9}}
 
