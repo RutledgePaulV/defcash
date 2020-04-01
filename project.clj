@@ -1,4 +1,4 @@
-(defproject org.clojars.rutledgepaulv/defcash "0.1.0"
+(defproject org.clojars.rutledgepaulv/defcash "0.1.1-SNAPSHOT"
 
   :description
   "A macro that combines clojure.core.memoize and defn"
