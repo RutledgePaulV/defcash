@@ -41,8 +41,8 @@ core.memoize is great but sometimes a little sugar is nice.
 
 ^{:ttl/threshold 500} will cache values for 5 seconds.
 ^{:fifo/threshold 500} will do a sliding window of the 500 most recent invocations.
-^{:lu/threshold 500} will keep 500 items and then remove items that are accessed the least.
-^{:lru/threshold 500} will keep 500 items and then remove the items that were least recently used.
+^{:lu/threshold 500} will keep 500 items and then remove items that have been accessed the least number of times.
+^{:lru/threshold 500} will keep 500 items and then remove the items that have been around the longest without use.
 
 
 ;;; you can also specify a :seed which is a map of arg vector to value
