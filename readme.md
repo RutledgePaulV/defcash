@@ -39,11 +39,17 @@ core.memoize is great but sometimes a little sugar is nice.
 ;;; just specify values for these keywords to toggle the strategies on.
 ;;; you can specify more than one and the strategies will be composed
 
-^{:ttl/threshold 500} will cache values for 5 seconds.
-^{:fifo/threshold 500} will do a sliding window of the 500 most recent invocations.
-^{:lu/threshold 500} will keep 500 items and then remove items that have been accessed the least number of times.
-^{:lru/threshold 500} will keep 500 items and then remove the items that have been around the longest without use.
+; cache answers for 5 seconds.
+^{:ttl/threshold 500}
 
+; will do a sliding window of the 500 most recent answers.
+^{:fifo/threshold 500}
+
+; will keep 500 items and then remove items that have been accessed the least number of times.
+^{:lu/threshold 500} 
+
+; will keep 500 items and then remove the items that have gone the longest without use.
+^{:lru/threshold 500}
 
 ;;; you can also specify a :seed which is a map of arg vector to value
 ;;; seed data is exempt from all natural and explicit evictions
