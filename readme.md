@@ -30,7 +30,7 @@ core.memoize is great but sometimes a little sugar is nice.
 (Thread/sleep 61000) ; :twiddle:
 (slow-made-fast 1 2) ; takes 5 seconds
 (slow-made-fast 1 2) ; returns immediately
-($/memo-clear! slow-made-fast) ; manual eviction
+(cash/memo-clear! slow-made-fast) ; manual eviction
 (slow-made-fast 1 2) ; takes 5 seconds
 (slow-made-fast 1 2) ; returns immediately
 
@@ -39,7 +39,7 @@ core.memoize is great but sometimes a little sugar is nice.
 ;;; just specify values for these keywords to toggle the strategies on
 ;;; you can specify more than one and the strategies will be composed
 
-; specify none of the cache strategies will default to unbounded caching (like clojure.core/memoize)
+; specifying none of the cache strategies will default to unbounded (like clojure.core/memoize)
 ^{}
 
 ; cache answers for 5 seconds
@@ -54,8 +54,7 @@ core.memoize is great but sometimes a little sugar is nice.
 ; will keep 500 items and then remove the items that have gone the longest without use
 ^{:lru/threshold 500}
 
-;;; you can also specify a :seed which is a map of arg vector to value
-
+; you can also specify a :seed which is a map of arg vector to value
 ^{:seed {[1 2] 3 [4 5] 9}}
 
 ```
