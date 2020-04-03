@@ -53,8 +53,7 @@
 (defn memo-clear!
   "Like clojure.core.memoize/memo-clear! except preserves seed values."
   ([f]
-   (memo/memo-swap! f (or (:seed (meta f)) {})))
+   (memo/memo-swap! f (:seed (meta f) {})))
   ([f args]
-   (let [seed (or (:seed (meta f)) {})]
-     (when-not (contains? seed args)
-       (memo/memo-clear! f args)))))
+   (when-not (contains? (:seed (meta f) {}) args)
+     (memo/memo-clear! f args))))
