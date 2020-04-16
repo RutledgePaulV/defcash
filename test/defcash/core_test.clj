@@ -26,6 +26,10 @@
   (Thread/sleep 1000)
   (+ a b))
 
+(defn$ ^{:clojure.core.memoize/args-fn rest} b-fun [a b]
+  (Thread/sleep 1000)
+  (+ a b))
+
 (defmacro timing [& body]
   `(let [start#  (System/currentTimeMillis)
          result# (do ~@body)
@@ -141,4 +145,10 @@
     (memo-clear! seed-fun [1 2])
     (is-fast (seed-fun 1 2))
     (memo-clear! seed-fun [6 6])
-    (is-slow (seed-fun 6 6))))
+    (is-slow (seed-fun 6 6)))
+
+  (testing "custom cache keys"
+    (is-slow (b-fun 1 2))
+    (is-fast (b-fun 1 2))
+    (is-fast (b-fun 2 2))
+    (is-slow (b-fun 1 3))))

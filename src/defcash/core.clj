@@ -19,8 +19,9 @@
               caches))))
 
 (defn cache-fn [metadata fun]
-  (let [seed (or (:seed metadata) {})]
-    (memo/memoizer fun (build-cache-factory metadata) seed)))
+  (let [seed      (or (:seed metadata) {})
+        prop-meta (select-keys metadata [::memo/args-fn])]
+    (memo/memoizer (with-meta fun prop-meta) (build-cache-factory metadata) seed)))
 
 
 ; public API
