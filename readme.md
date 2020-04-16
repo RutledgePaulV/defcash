@@ -18,7 +18,7 @@ core.memoize is great but sometimes a little sugar is nice.
 
 ```clojure 
 
-(require [defcash.core :as cash])
+(require '[defcash.core :as cash])
 
 (cash/defn$ ^{:ttl/threshold 60000} slow-made-fast [a b]
   (Thread/sleep 5000)
