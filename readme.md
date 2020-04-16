@@ -10,7 +10,7 @@ core.memoize is great but sometimes a little sugar is nice.
 ### Install
 
 ```clojure
-[org.clojars.rutledgepaulv/defcash "0.1.0"]
+[org.clojars.rutledgepaulv/defcash "0.1.1"]
 ```
 
 
@@ -57,6 +57,8 @@ core.memoize is great but sometimes a little sugar is nice.
 ; you can also specify a :seed which is a map of arg vector to value
 ^{:seed {[1 2] 3 [4 5] 9}}
 
+; you can also derive custom cache keys using a function of the arguments
+^{:clojure.core.memoize/args-fn #(mapv class %)}
 ```
 
 ### License
