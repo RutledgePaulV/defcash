@@ -1,10 +1,16 @@
 (ns defcash.core
   (:require [clojure.core.memoize :as memo]
-            [clojure.core.cache :as cache]))
+            [clojure.core.cache :as cache])
+  (:import (java.time Duration)))
+
+(defn ->millis [x]
+  (if (instance? Duration x)
+    (.toMillis x)
+    x))
 
 (def CACHE_FACTORIES
   {:fifo/threshold (fn [base threshold] (cache/fifo-cache-factory base :threshold threshold))
-   :ttl/threshold  (fn [base threshold] (cache/ttl-cache-factory base :ttl threshold))
+   :ttl/threshold  (fn [base threshold] (cache/ttl-cache-factory base :ttl (->millis threshold)))
    :lu/threshold   (fn [base threshold] (cache/lu-cache-factory base :threshold threshold))
    :lru/threshold  (fn [base threshold] (cache/lru-cache-factory base :threshold threshold))})
 

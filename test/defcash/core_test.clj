@@ -1,6 +1,7 @@
 (ns defcash.core-test
   (:require [clojure.test :refer :all]
-            [defcash.core :refer :all]))
+            [defcash.core :refer :all])
+  (:import (java.time Duration)))
 
 (defn$ memo-fun [a b]
   (Thread/sleep 1000)
@@ -27,6 +28,10 @@
   (+ a b))
 
 (defn$ ^{:clojure.core.memoize/args-fn rest} b-fun [a b]
+  (Thread/sleep 1000)
+  (+ a b))
+
+(defn$ ^{:ttl/threshold (Duration/ofSeconds 2)} duration-fun [a b]
   (Thread/sleep 1000)
   (+ a b))
 
@@ -78,6 +83,13 @@
     (Thread/sleep 2000)
     (is-slow (ttl-fun 1 2))
     (dotimes [_ 50] (is-fast (ttl-fun 1 2))))
+
+  (testing "duration-fun"
+    (is-slow (duration-fun 1 2))
+    (dotimes [_ 50] (is-fast (duration-fun 1 2)))
+    (Thread/sleep 2000)
+    (is-slow (duration-fun 1 2))
+    (dotimes [_ 50] (is-fast (duration-fun 1 2))))
 
   (testing "fifo-fun"
     ; first five
